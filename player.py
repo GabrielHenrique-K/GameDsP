@@ -9,27 +9,27 @@ import os
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, character_type='default'):
         super().__init__()
-        self.character_type = character_type  # Define o tipo de personagem
-        self.load_gif_frames()  # Carrega os frames do GIF do personagem
+        self.character_type = character_type  
+        self.load_gif_frames()  
 
-        # Inicializando atributos do jogador
-        self.coins = GameState.get_instance().coins  # Pega o número inicial de moedas do estado do jogo
+        
+        self.coins = GameState.get_instance().coins  
         self.health = 100
-        self.attack_power = 10  # Novo atributo para poder de ataque
+        self.attack_power = 10  
         self.is_defending = False
         self.attack_strategy = FireAttack()
         
-        # Inicialização de animação e variáveis de estado
+        
         self.current_frame = 0
         self.image = self.frames[self.current_frame]
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.last_update = pygame.time.get_ticks()
-        self.frame_rate = 150  # Intervalo entre os frames em milissegundos
+        self.frame_rate = 150  
         self.velocity_y = 0
         self.on_ground = True
 
-        # Carregar som de pulo
+        
         try:
             self.jump_sound = pygame.mixer.Sound('assets/sounds/dbz-teleport.mp3')
         except pygame.error as e:
@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
             pil_image = Image.open(gif_path)
         except IOError:
             print(f"Erro ao carregar GIF: {gif_path}")
-            self.frames = [pygame.Surface((32, 32))]  # Frame padrão em caso de erro
+            self.frames = [pygame.Surface((32, 32))]  
             return
         
         self.frames = []
@@ -54,7 +54,7 @@ class Player(pygame.sprite.Sprite):
             size = frame_image.size
             data = frame_image.tobytes()
             pygame_image = pygame.image.fromstring(data, size, mode).convert_alpha()
-            self.frames.append(pygame.transform.scale(pygame_image, (64, 64)))  # Ajusta o tamanho, se necessário
+            self.frames.append(pygame.transform.scale(pygame_image, (64, 64)))  
 
     def update(self):
         """Atualiza o frame atual para simular animação."""
@@ -82,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity_y += 1  # Gravidade
         self.rect.y += self.velocity_y
         
-        # Checar colisão com o chão
+        
         collision_list = pygame.sprite.spritecollide(self, ground_group, False)
         if collision_list:
             self.rect.bottom = collision_list[0].rect.top

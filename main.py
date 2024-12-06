@@ -29,9 +29,9 @@ def main():
     game_state = GameState.get_instance()
     running = True
 
-    # Carregar imagem de fundo
+    
     background_image = pygame.image.load(os.path.join('assets', 'images', 'background.png')).convert()
-    background_image = pygame.transform.scale(background_image, (1280, 480))  # Fundo maior para rolar
+    background_image = pygame.transform.scale(background_image, (1280, 480))  
 
     player = CharacterFactory.create_character("player", x=100, y=300, character_type=game_state.selected_character)
     player_observer = PlayerObserver(player)
@@ -40,16 +40,16 @@ def main():
     coins = pygame.sprite.Group()
     enemies = pygame.sprite.Group()
     ground_group = pygame.sprite.Group()
-    platform_group = pygame.sprite.Group()  # Grupo de plataformas
+    platform_group = pygame.sprite.Group()  
 
     all_sprites.add(player)
 
-    # Criar o chão
+
     ground = Ground(0, 400, 640, 80)
     all_sprites.add(ground)
     ground_group.add(ground)
 
-    # Criar plataformas
+    
     platforms = [
         Platform(200, 300, 100, 20),
         Platform(400, 250, 100, 20),
@@ -67,14 +67,13 @@ def main():
         all_sprites.add(coin)
         coin.attach(player_observer)
 
-    # Criar inimigos e colocar em algumas plataformas
+   
     enemy_positions = [(300, 350), (500, 300), (700, 250), (900, 200)]
     for pos in enemy_positions:
         enemy = Enemy(*pos)
         enemies.add(enemy)
         all_sprites.add(enemy)
 
-    # Variável para rastrear o deslocamento da câmera (scroll)
     camera_offset = 0
 
     while running:
@@ -84,7 +83,7 @@ def main():
             if game_state.state == "exit":
                 running = False
         elif game_state.state == "playing":
-            # Loop de jogo
+            # Loop
             playing = True
             while playing:
                 for event in pygame.event.get():
@@ -94,16 +93,15 @@ def main():
                         playing = False
                     elif event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_SPACE and player.on_ground:
-                            player.velocity_y = -15  # Ajuste no pulo
-                            player.on_ground = False  # Indica que o jogador está no ar
+                            player.velocity_y = -15  
+                            player.on_ground = False  
                         elif event.key == pygame.K_a:
                             if enemies:
-                                current_enemy = enemies.sprites()[0]  # Ataca o primeiro inimigo na lista
+                                current_enemy = enemies.sprites()[0]  
                                 player.attack(current_enemy)
                         elif event.key == pygame.K_d:
-                            player.defend()  # Defender
+                            player.defend()  
 
-                # Movimentação do jogador
                 keys_pressed = pygame.key.get_pressed()
                 dx = 0
                 if keys_pressed[pygame.K_LEFT]:
@@ -111,41 +109,40 @@ def main():
                 elif keys_pressed[pygame.K_RIGHT]:
                     dx = 5
 
-                # Move o jogador
                 player.rect.x += dx
 
-                # Aplicar gravidade e ajustar colisão com plataformas e chão
+                
                 player.velocity_y += 1  # Gravidade
                 player.rect.y += player.velocity_y
                 
-                # Verifica a colisão com o chão
+                
                 if pygame.sprite.spritecollide(player, ground_group, False):
-                    player.rect.y = 400 - player.rect.height  # Posição em cima do chão
+                    player.rect.y = 400 - player.rect.height  
                     player.velocity_y = 0
                     player.on_ground = True
                 else:
                     player.on_ground = False
 
-                # Verifica a colisão com plataformas
+             
                 if pygame.sprite.spritecollide(player, platform_group, False):
-                    player.velocity_y = 0  # Interrompe o movimento vertical ao colidir com plataformas
+                    player.velocity_y = 0  
 
-                # Atualizar rolagem do fundo e impedir desaparecimento do jogador
+                
                 if player.rect.x > 320 and dx > 0 and camera_offset > -640:
                     camera_offset -= dx
                     player.rect.x = 320
 
-                # Atualiza todas as sprites
+                
                 all_sprites.update()
 
-                # Verificar colisão com moedas
+                
                 coins_hit_list = pygame.sprite.spritecollide(player, coins, False)
                 for coin in coins_hit_list:
                     coin.collect()
                     coins.remove(coin)
                     all_sprites.remove(coin)
 
-                # Verificar colisão com inimigos
+              
                 enemy_hit_list = pygame.sprite.spritecollide(player, enemies, False)
                 if enemy_hit_list:
                     game_state.state = "combat"
@@ -162,13 +159,13 @@ def main():
                         game_state.state = "victory"
                         playing = False
 
-                # Renderizar o jogo
-                screen.fill((135, 206, 235))  # Fundo azul claro
+                
+                screen.fill((135, 206, 235))  
                 screen.blit(background_image, (camera_offset, 0))
                 for entity in all_sprites:
                     screen.blit(entity.image, (entity.rect.x + camera_offset, entity.rect.y))
 
-                # Exibir contador de moedas
+              
                 coin_text = font.render(f"Moedas: {player.coins}", True, (255, 255, 255))
                 screen.blit(coin_text, (10, 10))
 

@@ -6,9 +6,9 @@ class GameState:
     def __init__(self):
         if not GameState._instance:
             self.state = "menu"
-            self.coins = 0  # Total de moedas acumuladas
-            self.selected_character = "default"  # Personagem selecionado
-            self.purchased_characters = ["default"]  # Personagens comprados
+            self.coins = 0  
+            self.selected_character = "default"  
+            self.purchased_characters = ["default"]  
             GameState._instance = self
 
     @staticmethod

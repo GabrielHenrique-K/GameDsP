@@ -26,7 +26,6 @@ class CharacterSelect:
                 text = self.font.render(option, True, color)
                 self.screen.blit(text, (100, 100 + idx * 40))
 
-                # Exibir um quadrado com a cor do personagem
                 if idx < len(self.characters):
                     character_color = (0, 0, 255) if self.characters[idx] == "default" else \
                                       (255, 0, 0) if self.characters[idx] == "v" else \
