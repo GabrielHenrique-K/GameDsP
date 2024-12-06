@@ -2,7 +2,31 @@
 
 # GameDsP
 
-## Descrição
+---
+
+## Design Patterns Utilizados
+
+1. **Singleton**: Gerenciamento do estado global do jogo.
+2. **Factory**: Criação de personagens.
+3. **Observer**: Notificações sobre eventos importantes no jogo.
+4. **Strategy**: Comportamento variável dos inimigos.
+5. **Command**: Encapsulamento das ações do jogador (ataques e cura).
+
+## Controles
+
+- **1**: Atacar o inimigo.
+- **2**: Curar-se.
+- **3**: Usar habilidade especial.
+
+## Estrutura do Jogo
+
+```
+Jogo-basico-DesignPatters/
+├── game.py         
+```
+
+
+## Descrição do Outro Jogo (No Finalizado)
 
 **GameDsP** é um jogo baseado em Python que combina elementos de combate, escolha de personagens e mecânicas de RPG. O projeto utiliza diversas bibliotecas para manipulação de sprites, sons e interação do jogador, com um foco em oferecer uma experiência imersiva.
 
