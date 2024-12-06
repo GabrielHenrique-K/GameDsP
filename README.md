@@ -2,7 +2,6 @@
 
 # GameDsP
 
----
 
 ## Design Patterns Utilizados
 
@@ -26,7 +25,7 @@ Jogo-basico-DesignPatters/
 ```
 
 
-## Descrição do Outro Jogo (No Finalizado)
+### Descrição do Outro Jogo (No Finalizado)
 
 **GameDsP** é um jogo baseado em Python que combina elementos de combate, escolha de personagens e mecânicas de RPG. O projeto utiliza diversas bibliotecas para manipulação de sprites, sons e interação do jogador, com um foco em oferecer uma experiência imersiva.
 
