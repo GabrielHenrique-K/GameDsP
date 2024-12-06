@@ -9,35 +9,35 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         
-        # Seleciona aleatoriamente uma das duas imagens de inimigo
+  
         enemy_images = [
             os.path.join('assets', 'images', 'enemy1.gif'),
             os.path.join('assets', 'images', 'enemy2.gif')
         ]
         selected_image_path = random.choice(enemy_images)
 
-        # Carrega a imagem selecionada
+    
         try:
             self.image = pygame.image.load(selected_image_path).convert_alpha()
-            self.image = pygame.transform.scale(self.image, (64, 64))  # Ajusta o tamanho da imagem, se necessário
+            self.image = pygame.transform.scale(self.image, (64, 64))  
         except pygame.error as e:
             print(f"Erro ao carregar imagem do inimigo: {e}")
-            self.image = pygame.Surface((64, 64))  # Imagem padrão em caso de erro
-            self.image.fill((255, 0, 0))  # Cor vermelha para a imagem padrão
+            self.image = pygame.Surface((64, 64))  
+            self.image.fill((255, 0, 0))  
 
-        # Configura o retângulo de colisão do inimigo
+      
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
-        # Atributos do inimigo
+        
         self.health = 50
         self.attack_strategy = WaterAttack()
         self.is_defending = False
 
     def update(self):
         """Atualize o estado do inimigo, se necessário."""
-        pass  # Lógica adicional do inimigo pode ser adicionada aqui
+        pass  
 
     def attack(self, target):
         """Executa o ataque no alvo."""

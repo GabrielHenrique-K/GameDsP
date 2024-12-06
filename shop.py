@@ -23,7 +23,7 @@ class Shop:
                     color = (255, 0, 0)
                 text = self.font.render(option, True, color)
                 self.screen.blit(text, (50, 100 + idx * 40))
-            # Exibir total de moedas
+
             coins_text = self.font.render(f"Moedas: {self.game_state.coins}", True, (255, 255, 0))
             self.screen.blit(coins_text, (10, 10))
             pygame.display.flip()

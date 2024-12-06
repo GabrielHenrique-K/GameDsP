@@ -10,24 +10,22 @@ class CombatSystem:
         self.player = player
         self.enemy = enemy
         self.turn = "player"
-        self.font = pygame.font.Font(None, 28)  # Reduzido para melhor ajuste
+        self.font = pygame.font.Font(None, 28)  
         
-        # Combate opções
         self.options = ["Atacar", "Defender", "Curar", "Provocar", "Magia", "Carregar Ki"]
         self.selected = 0
 
-        # Carregar imagens de combate
         self.background = pygame.image.load(os.path.join('assets', 'images', 'combat_background.png')).convert()
         self.player_image = pygame.transform.scale(
             pygame.image.load(os.path.join('assets', 'images', f'{self.player.character_type}.gif')).convert_alpha(),
-            (80, 80)  # Reduzido para caber na tela de combate
+            (80, 80)  
         )
         self.enemy_image = pygame.transform.scale(
             pygame.image.load(os.path.join('assets', 'images', 'enemy1.gif')).convert_alpha(),
-            (80, 80)  # Reduzido para caber na tela de combate
+            (80, 80)  
         )
 
-        # Carregar sons
+        
         try:
             self.attack_sound = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'soco.mp3'))
             self.victory_sound = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'victory.mp3'))
@@ -42,14 +40,14 @@ class CombatSystem:
         running = True
         while running:
             self.screen.fill((0, 0, 0))
-            self.screen.blit(self.background, (0, 0))  # Exibe o fundo do combate
+            self.screen.blit(self.background, (0, 0))  
             
-            # Posicionar os personagens
-            self.screen.blit(self.player_image, (50, 300))  # Posição compacta para o jogador
-            self.screen.blit(self.enemy_image, (500, 300))  # Posição compacta para o inimigo
+           
+            self.screen.blit(self.player_image, (50, 300))  
+            self.screen.blit(self.enemy_image, (500, 300))  
             
             self.display_health()
-            self.display_options()  # Exibir opções de ação
+            self.display_options() 
             
             pygame.display.flip()
             for event in pygame.event.get():
@@ -66,7 +64,7 @@ class CombatSystem:
                         self.player_action()
                         if self.enemy.health <= 0:
                             print("Você venceu o combate!")
-                            self.victory_sound.play()  # Toca o som de vitória
+                            self.victory_sound.play()  
                             running = False
                             break
                         self.turn = "enemy"
@@ -75,12 +73,12 @@ class CombatSystem:
                 self.enemy_action()
                 if self.player.health <= 0:
                     print("Você foi derrotado!")
-                    self.game_over_sound.play()  # Toca o som de derrota
+                    self.game_over_sound.play()  
                     running = False
                 self.turn = "player"
 
     def display_options(self):
-        # Exibir opções em uma coluna compacta
+       
         for idx, option in enumerate(self.options):
             color = (255, 255, 255) if idx != self.selected else (255, 0, 0)
             text = self.font.render(option, True, color)
@@ -93,7 +91,7 @@ class CombatSystem:
         self.screen.blit(enemy_health, (500, 20))
 
     def player_action(self):
-        command = None  # Inicializando para verificar se há um comando válido
+        command = None  
 
         if self.selected == 0:
             state = AttackingState()
@@ -114,13 +112,13 @@ class CombatSystem:
         elif self.selected == 4:  # Magia
             print("Jogador usou Magia!")
             self.magic_sound.play()
-            self.enemy.health -= 15  # Magia causa dano direto ao inimigo
-        elif self.selected == 5:  # Carregar Ki
+            self.enemy.health -= 15  
+        elif self.selected == 5: 
             print("Jogador carregou Ki!")
             self.ki_charge_sound.play()
-            self.player.attack_power += 5  # Aumenta o poder de ataque temporariamente
+            self.player.attack_power += 5  
 
-        # Executa o comando apenas se ele foi inicializado
+        
         if command:
             command.execute()
 

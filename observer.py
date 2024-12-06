@@ -19,13 +19,13 @@ class Coin(pygame.sprite.Sprite, Subject):
         pygame.sprite.Sprite.__init__(self)
         Subject.__init__(self)
         self.image = pygame.Surface((20, 20))
-        self.image.fill((255, 223, 0))  # Cor dourada para a moeda
+        self.image.fill((255, 223, 0))  
         self.rect = self.image.get_rect()
         self.rect.center = position
 
     def collect(self):
         self.notify()
-        self.kill()  # Remove a moeda do grupo de sprites
+        self.kill()  
 
 class PlayerObserver:
     def __init__(self, player):
@@ -34,5 +34,5 @@ class PlayerObserver:
     def update(self, subject):
         if isinstance(subject, Coin):
             self.player.coins += 1
-            GameState.get_instance().coins = self.player.coins  # Atualiza o GameState
+            GameState.get_instance().coins = self.player.coins  #GameState
             print("Moeda coletada! Total de moedas:", self.player.coins)

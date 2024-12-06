@@ -9,7 +9,7 @@ class AttackCommand(Command):
         self.receiver = receiver
 
     def execute(self):
-        # No contexto atual, o comando já é executado no state.action
+        
         pass
 
 class DefendCommand(Command):
