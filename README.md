@@ -1,7 +1,7 @@
 ---
 
 # GameDsP
-##Dois Jogos um no terminal na pasta \GameDsP\Jogo-Basico-DesignPatterns e o outro estando na raiz que não foi finalizado
+## Dois Jogos um no terminal na pasta \GameDsP\Jogo-Basico-DesignPatterns e o outro estando na raiz que não foi finalizado
 
 
 ## Design Patterns Utilizados
